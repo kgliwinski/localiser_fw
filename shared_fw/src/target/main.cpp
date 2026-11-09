@@ -1,22 +1,17 @@
 #if defined(IS_TARGET)
-
 #include <Arduino.h>
+#include "LpsFtmResponder.h"
 
-// put function declarations here:
-int myFunction(int, int);
+LpsFtmResponder ftm("LPS_TARGET_1");
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+    Serial.begin(115200);
+    ftm.begin(); // No password needed
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+    // The WiFi task handles FTM responses automatically in the background.
+    delay(1000); 
 }
 
 #endif
