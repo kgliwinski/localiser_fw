@@ -1,17 +1,21 @@
 #if defined(IS_TARGET)
-#include <Arduino.h>
+
 #include "LpsFtmResponder.h"
+#include <cstdio>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 
-LpsFtmResponder ftm("LPS_TARGET_1");
+extern "C" void app_main() {
+    LpsFtmResponder ftm("LPS_TARGET_1");
+    if (!ftm.begin()) {
+        printf("FTM responder startup failed.\n");
+        return;
+    }
+    printf("Target SoftAP MAC Address: %s\n", ftm.macAddress().c_str());
 
-void setup() {
-    Serial.begin(115200);
-    ftm.begin(); // No password needed
-}
-
-void loop() {
-    // The WiFi task handles FTM responses automatically in the background.
-    delay(1000); 
+    while (true) {
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
 }
 
 #endif

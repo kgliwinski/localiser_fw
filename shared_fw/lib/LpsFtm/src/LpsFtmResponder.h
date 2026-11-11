@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LpsFtm.h"
-#include <Arduino.h>
+#include <string>
 
 class LpsFtmResponder : public LpsFtm {
 public:
@@ -9,9 +9,10 @@ public:
 
     bool begin() override;
     const char* ssid() const;
+    std::string macAddress() const;
 
 private:
-    String networkName;
-    String networkPassword;
+    std::string networkName;
+    std::string networkPassword;
     bool hasPassword;
 };
